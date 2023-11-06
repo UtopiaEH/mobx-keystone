@@ -1,6 +1,6 @@
 import {computed} from 'mobx';
 import {
-    detach, findParent, getParent, getParentPath, getParentToChildPath, getRootStore,
+    detach, findParent,
     idProp,
     Model,
     model,
@@ -9,21 +9,6 @@ import {
     types,
 } from 'mobx-keystone';
 import {TodoStore} from "../stores/TodoRoot.store.ts";
-
-// function getParentAtDepth<T extends Model>(
-//     model: T,
-//     depth: number
-// ): T | null {
-//     let parent: Model | null = model;
-//     for (let i = 0; i < depth; i++) {
-//         parent = getParent(parent);
-//         if (!parent) {
-//             // If there's no parent at the desired depth, return null
-//             return null;
-//         }
-//     }
-//     return parent as T;
-// }
 
 
 @model('TodoModel')
@@ -54,7 +39,12 @@ export class Todo extends Model({
 
         const todoStore = findParent<TodoStore>(this, (parentNode) => parentNode instanceof TodoStore);
         if (!todoStore) throw new Error("unknown todoStore")
-        todoStore.addSelectedTodos(this);
+        if(this.done) {
+            todoStore.addSelectedTodos(this);
+        } else {
+            todoStore.removeSelectedTodos(this);
+
+        }
     }
 
 }

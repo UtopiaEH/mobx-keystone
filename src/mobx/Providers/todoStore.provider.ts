@@ -15,6 +15,12 @@ export function createTodoStore(): TTodosStore {
         done: true,
     })
 
+
+    store.todos.forEach((todo) => {
+        if(todo.done) {
+            store.addSelectedTodos(todo);
+        }
+    })
     // registerRootStore(TodoStore)
 
     return store;

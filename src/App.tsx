@@ -14,7 +14,7 @@ function App() {
                 return (
                     <div key={todo.id}>
                         <input type={'checkbox'} checked={todo.done} onChange={() => todo.changeStatusDone()}/>
-                    <span onClick={() => todo.changeStatusDone()}>
+                        <span onClick={() => todo.changeStatusDone()}>
                             {todo.title} {'  '}
                      </span>
 
@@ -27,18 +27,20 @@ function App() {
                 id: Date.now().toString(),
                 title: 'new todo',
                 done: false
-            })}>Add todo</button>
+            })}>Add todo
+            </button>
 
 
             <div>Selected as Ref:</div>
 
-            {/*{todoStore.selectedTodos.map((todo) => {*/}
-            {/*    return (*/}
-            {/*        <div key={todo.id}>*/}
-            {/*            {todo.title}*/}
-            {/*        </div>*/}
-            {/*    );*/}
-            {/*})}*/}
+
+            {todoStore.selectedTodosRef.length ? todoStore.selectedTodosRef.map((todo) => {
+                return (
+                    <div key={todo.id}>
+                        {todo.title}
+                    </div>
+                );
+            }) : <span>No selected todos</span>}
         </>
     )
 }
