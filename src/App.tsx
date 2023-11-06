@@ -1,5 +1,6 @@
 import './App.css'
 import {useGlobalStore} from "./mobx/hooks/useGlobalStore.hook.ts";
+import {observer} from "mobx-react";
 
 function App() {
 
@@ -17,15 +18,15 @@ function App() {
 
             {globalStore.todoStore.todos.map((todo) => {
                 return (
-                    <div>
+                    <div key={todo.id}>
                         {todo.title} <span onClick={() => todo.removeMe()}>x</span>
                     </div>
                 );
             })}
 
-            <button onClick={() => globalStore.todoStore.addTodo()}>Add todo</button>
+            <button onClick={() =>globalStore.todoStore.addTodo()}>Add todo</button>
         </>
     )
 }
 
-export default App
+export default observer(App)
