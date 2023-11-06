@@ -5,26 +5,40 @@ import {observer} from "mobx-react";
 function App() {
 
     const globalStore = useGlobalStore();
-
-    // const todoStore = useTodoStore();
-
-    console.log('>>globalStore', globalStore.todoStore.getAllTodos);
-
-    // console.log('>>todoStore', todoStore);
-
+    const {todoStore} = globalStore;
     return (
         <>
             <div>TodoLists:</div>
 
-            {globalStore.todoStore.todos.map((todo) => {
+            {todoStore.todos.map((todo) => {
                 return (
                     <div key={todo.id}>
-                        {todo.title} <span onClick={() => todo.removeMe()}>x</span>
+                        <input type={'checkbox'} checked={todo.done} onChange={() => todo.changeStatusDone()}/>
+                    <span onClick={() => todo.changeStatusDone()}>
+                            {todo.title} {'  '}
+                     </span>
+
+                        <span onClick={() => todo.removeTodo()}>x</span>
                     </div>
                 );
             })}
 
-            <button onClick={() =>globalStore.todoStore.addTodo()}>Add todo</button>
+            <button onClick={() => todoStore.addTodo({
+                id: Date.now().toString(),
+                title: 'new todo',
+                done: false
+            })}>Add todo</button>
+
+
+            <div>Selected as Ref:</div>
+
+            {/*{todoStore.selectedTodos.map((todo) => {*/}
+            {/*    return (*/}
+            {/*        <div key={todo.id}>*/}
+            {/*            {todo.title}*/}
+            {/*        </div>*/}
+            {/*    );*/}
+            {/*})}*/}
         </>
     )
 }

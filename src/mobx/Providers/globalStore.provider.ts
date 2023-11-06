@@ -12,6 +12,7 @@ setGlobalConfig({
     modelAutoTypeChecking: ModelAutoTypeCheckingMode.AlwaysOn,
 });
 
+
 export function createRootStore(): TGlobalStore {
     const rootStore = new GlobalStore({
         todoStore: createTodoStore(),
